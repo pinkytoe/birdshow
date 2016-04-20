@@ -6,7 +6,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class MockCam implements Cam {
-
+	boolean toggle;
 	@Override
 	public void start() {
 		// TODO Auto-generated method stub
@@ -20,22 +20,18 @@ public class MockCam implements Cam {
 	}
 
 	@Override
-	public InputStream currentFrame() {
-		InputStream inputStream = this.getClass().getResourceAsStream("Cookie_Monster.jpg");
-		return inputStream;
-	}
-
-	@Override
-	public long currentSize() {
-		URL resource = this.getClass().getResource("Cookie_Monster.jpg");
+	public File currentFrame() {
+		URL resource = this.getClass().getResource(toggle?"Cookie_Monster.jpg":"Bert1970.jpg");
+		toggle = !toggle;
 		try {
 			File file = new File(resource.toURI());
-			return file.length();
+			return file;
 
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return null;
 	}
+
 
 }
