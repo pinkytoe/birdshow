@@ -1,7 +1,6 @@
 package com.github.pinkytoe.birdshow.cam;
 
 import java.io.File;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -9,13 +8,11 @@ public class MockCam implements Cam {
 	boolean toggle;
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
 
 	}
 

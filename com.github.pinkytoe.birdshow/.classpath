@@ -6,5 +6,6 @@
 			<accessrule kind="accessible" pattern="com/sun/net/httpserver/**"/>
 		</accessrules>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/opencv-310"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
