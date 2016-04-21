@@ -1,25 +1,23 @@
 package com.github.pinkytoe.birdshow.analysis;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
 public class ImageAnalysis {
 
 	static {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-	}
-
-	public void test() {
-		Mat image = Imgcodecs.imread(getClass().getResource("/lena.png").getPath());
 	}
 
 	private static byte[] readStream(InputStream stream) throws IOException {
@@ -40,29 +38,26 @@ public class ImageAnalysis {
 	}
 
 	public static void main(String[] args) {
-		// Register the default camera
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy  HH:mm:ss");
 		VideoCapture cap = new VideoCapture(0);
 
-		// Check if video capturing is enabled
 		if (!cap.isOpened()) {
 			System.exit(-1);
 		}
 
-		// Matrix for storing image
 		Mat image = new Mat();
-		// Frame for displaying image
 		TestFrame frame = new TestFrame();
 		frame.setVisible(true);
 
-		// Main loop
 		while (true) {
-			// Read current camera frame into matrix
 			cap.read(image);
-			// Render frame if the camera is still acquiring images
 			if (image != null) {
+
+				Imgproc.putText(image, LocalDateTime.now().format(format), new Point(10, 10), Core.FONT_HERSHEY_PLAIN,
+						new Double(1), new Scalar(255));
 				frame.render(image);
 			} else {
-				System.out.println("No captured frame -- camera disconnected");
+				System.out.println("image is null");
 				break;
 			}
 		}
